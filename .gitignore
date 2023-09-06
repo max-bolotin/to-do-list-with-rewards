@@ -13,3 +13,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+/pc-ssh.txt
+/pc-ssh.txt.pub
+/pcssh
+/pcssh.pub
