@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         taskViewModel.taskItems.observe(this) {
             binding.todoListRecyclerView.apply {
                 layoutManager = LinearLayoutManager(applicationContext)
-
+                adapter = TaskItemAdapter(it)
             }
         }
     }
