@@ -7,4 +7,6 @@
     <string name="name">Name</string>
     <string name="description">Description</string>
     <string name="save">Save</string>
+    <string name="checkbox">CheckBox</string>
+    <string name="place_holder">Place Holder</string>
 </resources>
