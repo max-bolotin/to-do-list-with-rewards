@@ -47,13 +47,24 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/saveButton"
+        android:id="@+id/timePickerButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginHorizontal="20dp"
         android:backgroundTint="@color/teal_200"
-        android:text="@string/save"
+        android:text="@string/select_time"
         android:textAlignment="center" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/saveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginHorizontal="20dp"
+        android:backgroundTint="?attr/colorPrimary"
+        android:text="@string/save"
+        android:textAlignment="center"
+        android:textColor="?colorOnPrimary"/>
 
 </LinearLayout>

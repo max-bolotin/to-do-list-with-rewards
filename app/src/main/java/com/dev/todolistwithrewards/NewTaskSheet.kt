@@ -9,11 +9,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.dev.todolistwithrewards.databinding.FragmentNewTaskSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import java.time.LocalTime
 
 class NewTaskSheet(var taskItem: TaskItem?) : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentNewTaskSheetBinding
     private lateinit var taskViewModel: TaskViewModel
+    private var dueTime: LocalTime? = null
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -25,6 +27,10 @@ class NewTaskSheet(var taskItem: TaskItem?) : BottomSheetDialogFragment() {
             val editable = Editable.Factory.getInstance()
             binding.name.text = editable.newEditable(taskItem!!.name)
             binding.description.text = editable.newEditable(taskItem!!.description)
+            if (taskItem!!.dueTime != null) {
+                dueTime = taskItem!!.dueTime!!
+                updateTimeButtonText()
+            }
         } else {
             binding.taskTitle.text = "New task"
         }
@@ -33,6 +39,17 @@ class NewTaskSheet(var taskItem: TaskItem?) : BottomSheetDialogFragment() {
         binding.saveButton.setOnClickListener {
             saveAction()
         }
+        binding.timePickerButton.setOnClickListener {
+            openTimePicker()
+        }
+    }
+
+    private fun openTimePicker() {
+        TODO("Not yet implemented")
+    }
+
+    private fun updateTimeButtonText() {
+        binding.timePickerButton.text = String.format("%02d:%02d", dueTime!!.hour, dueTime!!.minute)
     }
 
     private fun saveAction() {
@@ -43,7 +60,7 @@ class NewTaskSheet(var taskItem: TaskItem?) : BottomSheetDialogFragment() {
             val newTask = TaskItem(name, description, null, null)
             taskViewModel.addTaskItem(newTask)
         } else {
-            taskViewModel.updateTaskItem(taskItem!!.id, name, description, null)
+            taskViewModel.updateTaskItem(taskItem!!.id, name, description, dueTime)
         }
 
         binding.name.setText("")
