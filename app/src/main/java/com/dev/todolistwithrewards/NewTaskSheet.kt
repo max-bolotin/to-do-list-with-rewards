@@ -1,6 +1,7 @@
 package com.dev.todolistwithrewards
 
 import android.annotation.SuppressLint
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.text.Editable
 import android.view.LayoutInflater
@@ -45,7 +46,15 @@ class NewTaskSheet(var taskItem: TaskItem?) : BottomSheetDialogFragment() {
     }
 
     private fun openTimePicker() {
-        TODO("Not yet implemented")
+        if (dueTime == null)
+            dueTime = LocalTime.now()
+        val listener = TimePickerDialog.OnTimeSetListener { _, selectedHour, selectedMinute ->
+            dueTime = LocalTime.of(selectedHour, selectedMinute)
+            updateTimeButtonText()
+        }
+        val dialog = TimePickerDialog(activity, listener, dueTime!!.hour, dueTime!!.minute, true)
+        dialog.setTitle("Task Due")
+        dialog.show()
     }
 
     private fun updateTimeButtonText() {
