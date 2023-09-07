@@ -61,12 +61,20 @@ class NewTaskSheet(var taskItem: TaskItem?) : BottomSheetDialogFragment() {
         binding.timePickerButton.text = String.format("%02d:%02d", dueTime!!.hour, dueTime!!.minute)
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentNewTaskSheetBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     private fun saveAction() {
         val name = binding.name.text.toString()
         val description = binding.description.text.toString()
 
         if (taskItem == null) {
-            val newTask = TaskItem(name, description, null, null)
+            val newTask = TaskItem(name, description, dueTime, null)
             taskViewModel.addTaskItem(newTask)
         } else {
             taskViewModel.updateTaskItem(taskItem!!.id, name, description, dueTime)
@@ -75,14 +83,6 @@ class NewTaskSheet(var taskItem: TaskItem?) : BottomSheetDialogFragment() {
         binding.name.setText("")
         binding.description.setText("")
         dismiss()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentNewTaskSheetBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
 }
