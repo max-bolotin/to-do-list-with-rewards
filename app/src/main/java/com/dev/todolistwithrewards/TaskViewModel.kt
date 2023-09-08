@@ -19,12 +19,21 @@ class TaskViewModel : ViewModel() {
         taskItems.postValue(list)
     }
 
-    fun updateTaskItem(id: UUID, name: String, description: String, dueTime: LocalTime?) {
+    fun updateTaskItem(
+        id: UUID,
+        name: String,
+        description: String,
+        dueTime: LocalTime?,
+        score: Int?
+    ) {
         val list = taskItems.value
         val task = list!!.find { it.id == id }!!
         task.name = name
         task.description = description
         task.dueTime = dueTime
+        if (score != null) {
+            task.score = score
+        }
         taskItems.postValue(list)
     }
 

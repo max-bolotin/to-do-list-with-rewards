@@ -11,6 +11,7 @@ class TaskItem(
     var description: String,
     var dueTime: LocalTime?,
     var completedDate: LocalDate?,
+    var score: Int?,
     var id: UUID = UUID.randomUUID()
 ) {
     fun isCompleted() = completedDate != null

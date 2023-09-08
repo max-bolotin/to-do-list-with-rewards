@@ -1,6 +1,7 @@
 package com.dev.todolistwithrewards
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Paint
 import androidx.recyclerview.widget.RecyclerView
 import com.dev.todolistwithrewards.databinding.TaskItemCellBinding
@@ -14,9 +15,12 @@ class TaskItemViewHolder(
     val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
     fun bindTaskItem(taskItem: TaskItem) {
         binding.name.text = taskItem.name
+        binding.score.text = taskItem.score.toString()
+        binding.score.setTextColor(Color.parseColor("#FF07A61D"))
 
         if (taskItem.isCompleted()) {
             binding.name.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+            binding.score.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             binding.dueTime.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
         }
 

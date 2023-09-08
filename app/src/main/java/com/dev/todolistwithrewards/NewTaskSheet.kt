@@ -17,6 +17,7 @@ class NewTaskSheet(var taskItem: TaskItem?) : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentNewTaskSheetBinding
     private lateinit var taskViewModel: TaskViewModel
     private var dueTime: LocalTime? = null
+    private var score: Int? = 0
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -72,12 +73,14 @@ class NewTaskSheet(var taskItem: TaskItem?) : BottomSheetDialogFragment() {
     private fun saveAction() {
         val name = binding.name.text.toString()
         val description = binding.description.text.toString()
+        val scoreText = binding.score.text.toString()
+        val score = scoreText.toIntOrNull()
 
         if (taskItem == null) {
-            val newTask = TaskItem(name, description, dueTime, null)
+            val newTask = TaskItem(name, description, dueTime, null, score)
             taskViewModel.addTaskItem(newTask)
         } else {
-            taskViewModel.updateTaskItem(taskItem!!.id, name, description, dueTime)
+            taskViewModel.updateTaskItem(taskItem!!.id, name, description, dueTime, score)
         }
 
         binding.name.setText("")
