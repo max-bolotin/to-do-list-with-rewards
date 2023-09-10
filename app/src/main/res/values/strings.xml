@@ -12,4 +12,8 @@
     <string name="select_time">Select time</string>
     <string name="your_score">Your score:</string>
     <string name="score">Score</string>
+    <string name="your_current_score">Your current score:</string>
+    <string name="enter_points">Enter Points</string>
+    <string name="use_points">Use Points</string>
+    <string name="you_can_use_your_points">You can use your points:</string>
 </resources>
