@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ToDoListWithRewards</string>
+    <string name="app_name">Your Rewards List</string>
     <string name="task_name">Task name:</string>
     <string name="task_description">Task description:</string>
     <string name="new_task">New task:</string>
