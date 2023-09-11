@@ -1,7 +1,6 @@
 package com.dev.todolistwithrewards
 
 import android.annotation.SuppressLint
-import android.app.TimePickerDialog
 import android.os.Bundle
 import android.text.Editable
 import android.view.LayoutInflater
@@ -32,7 +31,7 @@ class NewTaskSheet(var taskItem: TaskItem?) : BottomSheetDialogFragment() {
             binding.score.text = editable.newEditable(taskItem!!.score.toString())
             if (taskItem!!.dueTime != null) {
                 dueTime = taskItem!!.dueTime!!
-                updateTimeButtonText()
+//                updateTimeButtonText()
             }
         } else {
             binding.taskTitle.text = "New task"
@@ -42,12 +41,12 @@ class NewTaskSheet(var taskItem: TaskItem?) : BottomSheetDialogFragment() {
         binding.saveButton.setOnClickListener {
             saveAction()
         }
-        binding.timePickerButton.setOnClickListener {
+        /*binding.timePickerButton.setOnClickListener {
             openTimePicker()
-        }
+        }*/
     }
 
-    private fun openTimePicker() {
+    /*private fun openTimePicker() {
         if (dueTime == null)
             dueTime = LocalTime.now()
         val listener = TimePickerDialog.OnTimeSetListener { _, selectedHour, selectedMinute ->
@@ -57,11 +56,11 @@ class NewTaskSheet(var taskItem: TaskItem?) : BottomSheetDialogFragment() {
         val dialog = TimePickerDialog(activity, listener, dueTime!!.hour, dueTime!!.minute, true)
         dialog.setTitle("Task Due")
         dialog.show()
-    }
+    }*/
 
-    private fun updateTimeButtonText() {
+    /*private fun updateTimeButtonText() {
         binding.timePickerButton.text = String.format("%02d:%02d", dueTime!!.hour, dueTime!!.minute)
-    }
+    }*/
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

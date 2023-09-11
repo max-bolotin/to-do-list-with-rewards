@@ -20,4 +20,5 @@
     <string name="points">Points</string>
     <string name="your_toast_message_here">Your toast message here</string>
     <string name="not_enough_points">You don\'t have enough points available!</string>
+    <string name="pending">pending</string>
 </resources>

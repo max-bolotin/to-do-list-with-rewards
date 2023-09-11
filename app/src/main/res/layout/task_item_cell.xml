@@ -44,13 +44,13 @@
             android:text="@string/place_holder" />
 
         <TextView
-            android:id="@+id/dueTime"
+            android:id="@+id/completedTime"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginHorizontal="5dp"
-            android:text="@string/place_holder" />
+            android:text="@string/pending" />
 
     </LinearLayout>
 
