@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
         // Set up OnClickListener for the score text or scoreValueOnMainPage
         binding.scoreOnMainPage.setOnClickListener {
             // Handle click on the score text
-            NewScoreSheet().show(supportFragmentManager, "newScoreTag")
+            NewTaskSheet(null).show(supportFragmentManager, "newScoreTag")
         }
 
         binding.scoreValueOnMainPage.setOnClickListener {
