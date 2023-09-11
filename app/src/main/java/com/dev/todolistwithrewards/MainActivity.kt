@@ -3,6 +3,7 @@ package com.dev.todolistwithrewards
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dev.todolistwithrewards.databinding.ActivityMainBinding
 
@@ -62,9 +63,14 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
             binding.todoListRecyclerView.apply {
                 layoutManager = LinearLayoutManager(applicationContext)
                 adapter = TaskItemAdapter(it, mainActivity)
+
+                val swipeHandler =
+                    ItemTouchHelper(SwipeToDeleteCallback(adapter as TaskItemAdapter))
+                swipeHandler.attachToRecyclerView(this)
             }
         }
     }
+
 
     override fun editTaskItem(taskItem: TaskItem) {
         NewTaskSheet(taskItem).show(supportFragmentManager, "newTaskTag")
