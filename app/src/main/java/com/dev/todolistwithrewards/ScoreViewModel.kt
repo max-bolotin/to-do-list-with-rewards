@@ -12,6 +12,7 @@ class ScoreViewModel : ViewModel() {
 
     // Function to subtract points from the totalScore
     fun subtractPoints(points: Int) {
-        totalScore.value = totalScore.value?.minus(points)
+//        totalScore.value = totalScore.value?.minus(points)
+        ScoreRepository.subtractFromTotalScore(points)
     }
 }

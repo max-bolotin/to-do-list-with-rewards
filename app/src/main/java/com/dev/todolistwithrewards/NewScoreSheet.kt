@@ -1,10 +1,14 @@
 package com.dev.todolistwithrewards
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.dev.todolistwithrewards.databinding.FragmentNewScoreSheetBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -32,20 +36,36 @@ class NewScoreSheet(var scoreItem: ScoreItem?) : BottomSheetDialogFragment() {
         }
     }
 
+    @SuppressLint("InflateParams")
     private fun saveAction() {
         val scoreText = binding.score.text.toString()
+        val pointsToSubtract = scoreText.toIntOrNull() ?: 0
 
-        // Convert the scoreText to an integer (you should handle possible exceptions here)
-        val pointsToSubtract = scoreText.toInt()
+        val subtractionSuccessful = ScoreRepository.subtractFromTotalScore(pointsToSubtract)
 
-        // Get a reference to the ScoreViewModel
-        val scoreViewModel = ViewModelProvider(requireActivity()).get(ScoreViewModel::class.java)
+        if (subtractionSuccessful) {
+            // Successfully subtracted points, you can dismiss the dialog
+            dismiss()
+        } else {
+            val inflater = LayoutInflater.from(context)
+            val layout = inflater.inflate(R.layout.toast_layout, null)
 
-        // Subtract the points from the totalScore
-        scoreViewModel.subtractPoints(pointsToSubtract)
+// Find and customize the TextView in the inflated layout
+            val textViewToast = layout.findViewById<TextView>(R.id.textViewToast)
+            textViewToast.setText(R.string.not_enough_points) // Use the string resource
 
-        dismiss()
+// Create a Toast with custom view
+            val toast = Toast.makeText(context, "", Toast.LENGTH_SHORT)
+            toast.view = layout
+
+// Set the gravity for centering the toast
+            toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
+
+// Show the Toast
+            toast.show()
+        }
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -41,7 +41,7 @@
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/usePointsButton"
             android:layout_width="160dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_gravity="end"
             android:layout_margin="20dp"
             android:backgroundTint="@color/design_default_color_primary"

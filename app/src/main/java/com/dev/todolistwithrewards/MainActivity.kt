@@ -27,11 +27,6 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
 
         setRecyclerView()
 
-        // Set up an observer to watch changes in totalScore
-        taskViewModel.totalScore.observe(this) { newScore ->
-            // Update the TextView with the new score value
-            binding.scoreValueOnMainPage.text = newScore.toString()
-        }
 
         // Set up OnClickListener for the score text or scoreValueOnMainPage
         binding.usePointsButton.setOnClickListener {
@@ -39,8 +34,8 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
             NewScoreSheet(null).show(supportFragmentManager, "newScoreTag")
         }
 
-        // Set up an observer to watch changes in totalScore from ScoreViewModel
-        scoreViewModel.totalScore.observe(this) { newScore ->
+// Set up an observer to watch changes in totalScore from ScoreRepository
+        ScoreRepository.getTotalScoreLiveData().observe(this) { newScore ->
             // Update the TextView with the new score value
             binding.scoreValueOnMainPage.text = newScore.toString()
         }

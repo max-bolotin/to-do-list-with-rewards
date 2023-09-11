@@ -44,7 +44,8 @@ class TaskViewModel : ViewModel() {
         val task = list!!.find { it.id == taskItem.id }!!
         if (task.completedDate == null) {
             task.completedDate = LocalDate.now()
-            totalScore.value = totalScore.value?.plus(task.score ?: 0)
+//            totalScore.value = totalScore.value?.plus(task.score ?: 0)
+            ScoreRepository.addToTotalScore(task.score ?: 0)
         }
         // Separate completed and uncompleted tasks
         val completedTasks = list.filter { it.completedDate != null }

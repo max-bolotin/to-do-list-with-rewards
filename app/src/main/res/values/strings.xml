@@ -18,4 +18,6 @@
     <string name="you_can_use_your_points">You can use your points:</string>
     <string name="how_much_points">How much points you want to use?</string>
     <string name="points">Points</string>
+    <string name="your_toast_message_here">Your toast message here</string>
+    <string name="not_enough_points">You don\'t have enough points available!</string>
 </resources>
