@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
         taskViewModel.taskItems.observe(this) {
             binding.todoListRecyclerView.apply {
                 layoutManager = LinearLayoutManager(applicationContext)
-                adapter = it?.let { it1 -> TaskItemAdapter(it1, mainActivity) }
+                adapter = TaskItemAdapter(it, mainActivity)
             }
         }
     }

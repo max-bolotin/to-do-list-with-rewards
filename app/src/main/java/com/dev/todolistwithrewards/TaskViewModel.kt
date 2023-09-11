@@ -7,7 +7,7 @@ import java.time.LocalTime
 import java.util.UUID
 
 class TaskViewModel : ViewModel() {
-    var taskItems = MutableLiveData<MutableList<TaskItem>?>()
+    var taskItems = MutableLiveData<MutableList<TaskItem>>()
     var totalScore = MutableLiveData<Int>()
 
     init {
