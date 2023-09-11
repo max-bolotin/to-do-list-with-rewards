@@ -8,14 +8,16 @@ import java.util.UUID
 
 class TaskViewModel : ViewModel() {
     var taskItems = MutableLiveData<MutableList<TaskItem>>()
+    var totalScore = MutableLiveData<Int>()
 
     init {
         taskItems.value = mutableListOf()
+        totalScore.value = 0
     }
 
     fun addTaskItem(newTask: TaskItem) {
         val list = taskItems.value
-        list!!.add(newTask)
+        list!!.add(0, newTask)
         taskItems.postValue(list)
     }
 
@@ -42,7 +44,19 @@ class TaskViewModel : ViewModel() {
         val task = list!!.find { it.id == taskItem.id }!!
         if (task.completedDate == null) {
             task.completedDate = LocalDate.now()
+            totalScore.value = totalScore.value?.plus(task.score ?: 0)
         }
-        taskItems.postValue(list)
+        // Separate completed and uncompleted tasks
+        val completedTasks = list.filter { it.completedDate != null }
+        val uncompletedTasks = list.filter { it.completedDate == null }
+
+        // Sort completed tasks by completion date in descending order
+        val sortedCompletedTasks = completedTasks.sortedByDescending { it.completedDate }
+
+        // Combine uncompleted tasks and sorted completed tasks
+        val updatedList = uncompletedTasks + sortedCompletedTasks
+
+        taskItems.postValue(updatedList.toMutableList())
+        totalScore.postValue(totalScore.value)
     }
 }

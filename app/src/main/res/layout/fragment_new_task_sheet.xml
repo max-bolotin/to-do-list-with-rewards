@@ -57,7 +57,8 @@
             android:id="@+id/score"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="@string/score" />
+            android:hint="@string/score"
+            android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

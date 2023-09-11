@@ -22,13 +22,38 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
 
         setRecyclerView()
 
-        /*        taskViewModel.name.observe(this) {
-                    binding.taskName.text = String.format("Task Name: %s", it)
-                }
-                taskViewModel.description.observe(this) {
-                    binding.taskDesc.text = String.format("Task Description: %s", it)
-                }*/
+        // Set up an observer to watch changes in totalScore
+        taskViewModel.totalScore.observe(this) { newScore ->
+            // Update the TextView with the new score value
+            binding.scoreValueOnMainPage.text = newScore.toString()
+        }
+
+        // Set up OnClickListener for the score text or scoreValueOnMainPage
+        binding.scoreOnMainPage.setOnClickListener {
+            // Handle click on the score text
+            NewTaskSheet(null).show(supportFragmentManager, "newScoreTag")
+        }
+
+        binding.scoreValueOnMainPage.setOnClickListener {
+            // Handle click on the score value
+            openScorePage()
+        }
     }
+
+    private fun openScorePage() {
+        // Create a new instance of ScoreFragment and pass the totalScore as an argument
+        val scoreFragment = ScoreFragment()
+        val bundle = Bundle()
+        bundle.putInt("totalScore", taskViewModel.totalScore.value ?: 0)
+        scoreFragment.arguments = bundle
+
+        // Replace any existing fragment in the fragment_score container with the ScoreFragment
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_score, scoreFragment) // Use your fragment container ID
+        transaction.addToBackStack(null) // Optional, to allow back navigation
+        transaction.commit()
+    }
+
 
     private fun setRecyclerView() {
         val mainActivity = this
