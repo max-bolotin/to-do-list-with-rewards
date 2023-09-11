@@ -16,4 +16,6 @@
     <string name="enter_points">Enter Points</string>
     <string name="use_points">Use Points</string>
     <string name="you_can_use_your_points">You can use your points:</string>
+    <string name="how_much_points">How much points you want to use?</string>
+    <string name="points">Points</string>
 </resources>

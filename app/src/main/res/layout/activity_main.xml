@@ -7,14 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <FrameLayout
+        android:id="@+id/fragment_score"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/taskName"
+            android:id="@+id/scoreOnMainPage"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,6 +26,14 @@
             android:layout_margin="20dp"
             android:text="@string/your_score" />
 
+        <TextView
+            android:id="@+id/scoreValueOnMainPage"
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_margin="20dp"
+            android:text="@string/place_holder" />
 
     </LinearLayout>
 
@@ -31,32 +43,6 @@
         android:layout_height="match_parent"
         android:layout_marginTop="80dp"
         android:backgroundTint="@color/design_default_color_background" />
-
-
-    <!--    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/taskName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/task_name"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_margin="20dp"
-            android:layout_gravity="center"/>
-
-        <TextView
-            android:id="@+id/taskDesc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/task_description"
-            style="@style/TextAppearance.AppCompat.Title"
-            android:layout_margin="20dp"
-            android:layout_gravity="center"/>
-
-        </LinearLayout>-->
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/newTaskButton"

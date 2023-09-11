@@ -29,6 +29,7 @@ class NewTaskSheet(var taskItem: TaskItem?) : BottomSheetDialogFragment() {
             val editable = Editable.Factory.getInstance()
             binding.name.text = editable.newEditable(taskItem!!.name)
             binding.description.text = editable.newEditable(taskItem!!.description)
+            binding.score.text = editable.newEditable(taskItem!!.score.toString())
             if (taskItem!!.dueTime != null) {
                 dueTime = taskItem!!.dueTime!!
                 updateTimeButtonText()
