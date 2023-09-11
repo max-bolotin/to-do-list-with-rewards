@@ -10,12 +10,17 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var taskViewModel: TaskViewModel
+    private lateinit var scoreViewModel: ScoreViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
+
+        // Initialize the scoreViewModel using ViewModelProvider
+        scoreViewModel = ViewModelProvider(this).get(ScoreViewModel::class.java)
+
         binding.newTaskButton.setOnClickListener {
             NewTaskSheet(null).show(supportFragmentManager, "newTaskTag")
         }
@@ -29,14 +34,15 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
         }
 
         // Set up OnClickListener for the score text or scoreValueOnMainPage
-        binding.scoreOnMainPage.setOnClickListener {
+        binding.usePointsButton.setOnClickListener {
             // Handle click on the score text
-            NewTaskSheet(null).show(supportFragmentManager, "newScoreTag")
+            NewScoreSheet(null).show(supportFragmentManager, "newScoreTag")
         }
 
-        binding.scoreValueOnMainPage.setOnClickListener {
-            // Handle click on the score value
-            openScorePage()
+        // Set up an observer to watch changes in totalScore from ScoreViewModel
+        scoreViewModel.totalScore.observe(this) { newScore ->
+            // Update the TextView with the new score value
+            binding.scoreValueOnMainPage.text = newScore.toString()
         }
     }
 
