@@ -33,7 +33,6 @@ class TaskItemViewHolder(
             binding.name.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             binding.score.setBackgroundResource(R.drawable.light_green_circle)
             resizeBackgroundImage(binding.score.background)
-//            binding.score.text = ""
             taskItem.completedDate = LocalDate.now()
             binding.completedTime.text =
                 buildString {
@@ -43,6 +42,7 @@ class TaskItemViewHolder(
                     append(".")
                     append(taskItem.completedDate!!.year)
                 }
+            binding.completedTime.setTextColor(Color.parseColor("#FF0786CA"))
         }
 
         binding.completeButton.setImageResource(taskItem.imageResource())

@@ -1,5 +1,6 @@
 package com.dev.todolistwithrewards
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -67,6 +68,10 @@ class TaskItemAdapter(
                 append(":")
             }
             binding.headerScoreTextView.text = header.score.toString()
+            if (header.score < 5)
+                binding.headerScoreTextView.setTextColor(Color.parseColor("#FF5733"))
+            else
+                binding.headerScoreTextView.setTextColor(Color.parseColor("#FF00AD00"))
         }
     }
 }
