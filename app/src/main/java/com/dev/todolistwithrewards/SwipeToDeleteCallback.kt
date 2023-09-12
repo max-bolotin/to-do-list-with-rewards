@@ -22,15 +22,15 @@ class SwipeToDeleteCallback(private val adapter: TaskItemAdapter) :
         // Check if the position is valid and within the bounds of the list
         if (position != RecyclerView.NO_POSITION && position < adapter.itemCount) {
             // Get the task item at the specified position
-            val taskItem = adapter.getTaskItem(position)
+//            val taskItem = adapter.getTaskItem(position)
 
             // Check if the task is completed before allowing deletion
-            if (taskItem!!.isCompleted()) {
+            /*if (taskItem!!.isCompleted()) {
                 adapter.deleteTask(position)
             } else {
                 // Notify the adapter to refresh the view to show the item was not deleted
                 adapter.notifyItemChanged(position)
-            }
+            }*/
         }
     }
 

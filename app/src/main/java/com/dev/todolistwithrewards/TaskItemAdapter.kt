@@ -3,36 +3,64 @@ package com.dev.todolistwithrewards
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.dev.todolistwithrewards.databinding.CompletedTasksHeaderBinding
 import com.dev.todolistwithrewards.databinding.TaskItemCellBinding
 
 class TaskItemAdapter(
-    private val taskItems: MutableList<TaskItem>,
+    private val items: List<Any>, // List of TaskItem and CompletedTasksHeader
     private val clickListener: TaskItemClickListener
-) : RecyclerView.Adapter<TaskItemViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskItemViewHolder {
-        val from = LayoutInflater.from(parent.context)
-        val binding = TaskItemCellBinding.inflate(from, parent, false)
-        return TaskItemViewHolder(parent.context, binding, clickListener)
-    }
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    fun getTaskItem(position: Int): TaskItem? {
-        if (position >= 0 && position < taskItems.size) {
-            return taskItems[position]
+    private val VIEW_TYPE_HEADER = 0
+    private val VIEW_TYPE_ITEM = 1
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+
+        return when (viewType) {
+            VIEW_TYPE_HEADER -> {
+                val headerBinding = CompletedTasksHeaderBinding.inflate(inflater, parent, false)
+                HeaderViewHolder(headerBinding)
+            }
+
+            VIEW_TYPE_ITEM -> {
+                val itemBinding = TaskItemCellBinding.inflate(inflater, parent, false)
+                TaskItemViewHolder(parent.context, itemBinding, clickListener)
+            }
+
+            else -> throw IllegalArgumentException("Invalid viewType")
         }
-        return null
     }
 
-    override fun getItemCount() = taskItems.size
-
-    override fun onBindViewHolder(holder: TaskItemViewHolder, position: Int) {
-        holder.bindTaskItem(taskItems[position])
+    override fun getItemViewType(position: Int): Int {
+        return if (items[position] is CompletedTasksHeader) VIEW_TYPE_HEADER else VIEW_TYPE_ITEM
     }
 
-    fun deleteTask(position: Int) {
-        // Remove the task from the list if it's a valid position
-        if (position >= 0 && position < taskItems.size) {
-            taskItems.removeAt(position)
-            notifyItemRemoved(position)
+    override fun getItemCount() = items.size
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is HeaderViewHolder -> {
+                val header = items[position] as CompletedTasksHeader
+                holder.bind(header)
+            }
+
+            is TaskItemViewHolder -> {
+                val taskItem = items[position] as TaskItem
+                holder.bindTaskItem(taskItem)
+            }
+        }
+    }
+
+    inner class HeaderViewHolder(private val binding: CompletedTasksHeaderBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(header: CompletedTasksHeader) {
+            binding.headerDateTextView.text = buildString {
+                append("Your score for ")
+                append(header.date.toString())
+                append(":")
+            }
+            binding.headerScoreTextView.text = header.score.toString()
         }
     }
 }

@@ -10,7 +10,7 @@ import android.view.Gravity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.dev.todolistwithrewards.databinding.TaskItemCellBinding
-import java.time.LocalDateTime
+import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class TaskItemViewHolder(
@@ -31,13 +31,18 @@ class TaskItemViewHolder(
 
         if (taskItem.isCompleted()) {
             binding.name.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-//            binding.score.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-//            binding.dueTime.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             binding.score.setBackgroundResource(R.drawable.green_circle_checked)
             resizeBackgroundImage(binding.score.background)
             binding.score.text = ""
+            taskItem.completedDate = LocalDate.now()
             binding.completedTime.text =
-                LocalDateTime.now().dayOfMonth.toString() + "." + LocalDateTime.now().monthValue.toString() + "." + LocalDateTime.now().year
+                buildString {
+                    append(taskItem.completedDate!!.dayOfMonth.toString())
+                    append(".")
+                    append(taskItem.completedDate!!.monthValue.toString())
+                    append(".")
+                    append(taskItem.completedDate!!.year)
+                }
         }
 
         binding.completeButton.setImageResource(taskItem.imageResource())

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dev.todolistwithrewards.databinding.ActivityMainBinding
+import java.time.LocalDate
 
 class MainActivity : AppCompatActivity(), TaskItemClickListener {
 
@@ -55,20 +56,37 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
         transaction.commit()
     }
 
+    fun calculateScoreForDate(date: LocalDate): Int {
+        val tasksForDate = taskViewModel.taskItems.value!!.filter { it.completedDate == date }
+        return tasksForDate.sumOf { it.score!! }
+    }
+
+    fun updateScoreForCurrentDate() {
+        val currentDate = LocalDate.now()
+        val scoreForDate = calculateScoreForDate(currentDate)
+        binding.scoreValueOnMainPage.text = scoreForDate.toString()
+    }
 
     private fun setRecyclerView() {
         val mainActivity = this
-        taskViewModel.taskItems.observe(this) {
-            binding.todoListRecyclerView.apply {
-                layoutManager = LinearLayoutManager(applicationContext)
-                adapter = TaskItemAdapter(it, mainActivity)
 
-                /*val swipeHandler =
-                    ItemTouchHelper(SwipeToDeleteCallback(adapter as TaskItemAdapter))
-                swipeHandler.attachToRecyclerView(this)*/
+        taskViewModel.taskItems.observe(this) { taskItems ->
+            val groupedTasks = taskItems.groupBy { it.completedDate }
+
+            val itemsWithHeaders = mutableListOf<Any>()
+
+            groupedTasks.forEach { (date, tasks) ->
+                val scoreForDate = calculateScoreForDate(date ?: LocalDate.now()) // Use LocalDate.now() or provide a default date
+                itemsWithHeaders.add(CompletedTasksHeader(date ?: LocalDate.now(), scoreForDate))
+                itemsWithHeaders.addAll(tasks)
             }
+
+            val adapter = TaskItemAdapter(itemsWithHeaders, mainActivity)
+            binding.todoListRecyclerView.layoutManager = LinearLayoutManager(applicationContext)
+            binding.todoListRecyclerView.adapter = adapter
         }
     }
+
 
 
     override fun editTaskItem(taskItem: TaskItem) {
