@@ -57,7 +57,13 @@ class TaskItemAdapter(
         fun bind(header: CompletedTasksHeader) {
             binding.headerDateTextView.text = buildString {
                 append("Your score for ")
-                append(header.date.toString())
+                append(header.date.dayOfWeek.toString())
+                append(", ")
+                append(header.date.dayOfMonth)
+                append(".")
+                append(header.date.monthValue.toString())
+                append(".")
+                append(header.date.year.toString())
                 append(":")
             }
             binding.headerScoreTextView.text = header.score.toString()

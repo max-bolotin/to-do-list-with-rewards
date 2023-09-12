@@ -7,8 +7,6 @@ class CompletedTasksHeaderViewHolder(private val binding: CompletedTasksHeaderBi
     RecyclerView.ViewHolder(binding.root) {
 
     fun bindHeader(headerItem: CompletedTasksHeader) {
-        // Bind the header data to your CompletedTasksHeaderViewHolder views
-        // For example:
         binding.headerDateTextView.text =
             buildString {
                 append("Your score for ")

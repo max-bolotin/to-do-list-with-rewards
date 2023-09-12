@@ -31,9 +31,9 @@ class TaskItemViewHolder(
 
         if (taskItem.isCompleted()) {
             binding.name.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-            binding.score.setBackgroundResource(R.drawable.green_circle_checked)
+            binding.score.setBackgroundResource(R.drawable.light_green_circle)
             resizeBackgroundImage(binding.score.background)
-            binding.score.text = ""
+//            binding.score.text = ""
             taskItem.completedDate = LocalDate.now()
             binding.completedTime.text =
                 buildString {
