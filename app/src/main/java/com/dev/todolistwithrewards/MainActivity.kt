@@ -1,6 +1,7 @@
 package com.dev.todolistwithrewards
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,14 +11,17 @@ import java.time.LocalDate
 class MainActivity : AppCompatActivity(), TaskItemClickListener {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var taskViewModel: TaskViewModel
+    private val taskViewModel: TaskViewModel by viewModels()
+    {
+        TaskItemModelFactory((application as TodoApplication).repository)
+    }
     private lateinit var scoreViewModel: ScoreViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
+//        taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
 
         // Initialize the scoreViewModel using ViewModelProvider
         scoreViewModel = ViewModelProvider(this).get(ScoreViewModel::class.java)
@@ -57,7 +61,7 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
     }
 
     fun calculateScoreForDate(date: LocalDate): Int {
-        val tasksForDate = taskViewModel.taskItems.value!!.filter { it.completedDate == date }
+        val tasksForDate = taskViewModel.taskItems.value!!.filter { it.completedDate() == date }
         return tasksForDate.sumOf { it.score!! }
     }
 
@@ -71,12 +75,14 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
         val mainActivity = this
 
         taskViewModel.taskItems.observe(this) { taskItems ->
-            val groupedTasks = taskItems.groupBy { it.completedDate }
+            val groupedTasks = taskItems.groupBy { it.completedDate() }
 
             val itemsWithHeaders = mutableListOf<Any>()
 
             groupedTasks.forEach { (date, tasks) ->
-                val scoreForDate = calculateScoreForDate(date ?: LocalDate.now()) // Use LocalDate.now() or provide a default date
+                val scoreForDate = calculateScoreForDate(
+                    date ?: LocalDate.now()
+                ) // Use LocalDate.now() or provide a default date
                 itemsWithHeaders.add(CompletedTasksHeader(date ?: LocalDate.now(), scoreForDate))
                 itemsWithHeaders.addAll(tasks)
             }
@@ -86,7 +92,6 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
             binding.todoListRecyclerView.adapter = adapter
         }
     }
-
 
 
     override fun editTaskItem(taskItem: TaskItem) {

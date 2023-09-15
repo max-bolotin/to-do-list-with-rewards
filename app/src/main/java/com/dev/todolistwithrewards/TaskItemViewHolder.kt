@@ -33,15 +33,15 @@ class TaskItemViewHolder(
             binding.name.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             binding.score.setBackgroundResource(R.drawable.light_green_circle)
             resizeBackgroundImage(binding.score.background)
-            taskItem.completedDate = LocalDate.now()
-            binding.completedTime.text =
-                buildString {
-                    append(taskItem.completedDate!!.dayOfMonth.toString())
-                    append(".")
-                    append(taskItem.completedDate!!.monthValue.toString())
-                    append(".")
-                    append(taskItem.completedDate!!.year)
-                }
+            taskItem.completedDateString = TaskItem.dateFormatter.format(LocalDate.now())
+            binding.completedTime.text = taskItem.completedDateString
+            /*buildString {
+                append(taskItem.completedDate!!.dayOfMonth.toString())
+                append(".")
+                append(taskItem.completedDate!!.monthValue.toString())
+                append(".")
+                append(taskItem.completedDate!!.year)
+            }*/
             binding.completedTime.setTextColor(Color.parseColor("#FF0786CA"))
         }
 
