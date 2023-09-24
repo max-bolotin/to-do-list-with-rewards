@@ -75,9 +75,20 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
         val mainActivity = this
 
         taskViewModel.taskItems.observe(this) { taskItems ->
-            val groupedTasks = taskItems.groupBy { it.completedDate() }
+            // Separate completed and uncompleted tasks
+            val completedTasks = taskItems.filter { it.completedDate() != null }
+            val uncompletedTasks = taskItems.filter { it.completedDate() == null }
+
+            // Sort completed tasks by completion date in descending order
+            val sortedCompletedTasks = completedTasks.sortedByDescending { it.completedDate() }
+
+            // Combine uncompleted tasks and sorted completed tasks
+            val updatedList = uncompletedTasks + sortedCompletedTasks
 
             val itemsWithHeaders = mutableListOf<Any>()
+
+            // Calculate scores and add headers
+            val groupedTasks = updatedList.groupBy { it.completedDate() }
 
             groupedTasks.forEach { (date, tasks) ->
                 val scoreForDate = calculateScoreForDate(
@@ -94,6 +105,7 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
     }
 
 
+
     override fun editTaskItem(taskItem: TaskItem) {
         NewTaskSheet(taskItem).show(supportFragmentManager, "newTaskTag")
     }
@@ -101,4 +113,5 @@ class MainActivity : AppCompatActivity(), TaskItemClickListener {
     override fun completeTaskItem(taskItem: TaskItem) {
         taskViewModel.setCompleted(taskItem)
     }
+
 }

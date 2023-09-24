@@ -1,6 +1,7 @@
 package com.dev.todolistwithrewards
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -40,6 +41,7 @@ class TaskItemAdapter(
     override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        Log.d("TaskItemAdapter", "Binding item at position $position, type: ${getItemViewType(position)}")
         when (holder) {
             is HeaderViewHolder -> {
                 val header = items[position] as CompletedTasksHeader

@@ -69,4 +69,6 @@ dependencies {
     implementation 'androidx.fragment:fragment-ktx:1.6.1'
     implementation 'androidx.room:room-runtime:2.5.2'
     implementation 'com.google.devtools.ksp:symbol-processing-api:1.9.10-1.0.13'
+
+    implementation 'com.facebook.stetho:stetho:1.5.1'
 }

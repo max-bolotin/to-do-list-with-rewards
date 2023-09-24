@@ -35,13 +35,6 @@ class TaskItemViewHolder(
             resizeBackgroundImage(binding.score.background)
             taskItem.completedDateString = TaskItem.dateFormatter.format(LocalDate.now())
             binding.completedTime.text = taskItem.completedDateString
-            /*buildString {
-                append(taskItem.completedDate!!.dayOfMonth.toString())
-                append(".")
-                append(taskItem.completedDate!!.monthValue.toString())
-                append(".")
-                append(taskItem.completedDate!!.year)
-            }*/
             binding.completedTime.setTextColor(Color.parseColor("#FF0786CA"))
         }
 

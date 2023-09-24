@@ -28,7 +28,7 @@ class TaskItem(
     fun dueTime(): LocalTime? =
         if (dueTimeString == null) null else LocalTime.parse(dueTimeString, timeFormatter)
 
-    fun isCompleted() = completedDate() != null
+    fun isCompleted() = completedDateString != null
     fun imageResource(): Int =
         if (isCompleted()) R.drawable.ic_check_circle_outline_24 else R.drawable.ic_unchecked_24
 
